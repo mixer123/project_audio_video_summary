@@ -47,7 +47,8 @@ def transcribe_mp4_bytes(file: bytes, filename: str):
         with open("temp_video.mp4", "rb") as f:
             transcript = client.audio.transcriptions.create(
                 file=f,
-                model="whisper-1"
+                model="whisper-1",
+                
             )
 
         st.markdown("### 📄 Transkrypcja:")
@@ -69,6 +70,7 @@ def transcribe_and_save(file_path, filename):
             transcript = client.audio.transcriptions.create(
                 file=f,
                 model="whisper-1",
+                
             )
         st.markdown("### 📄 Transkrypcja:")
         st.markdown(transcript.text)
