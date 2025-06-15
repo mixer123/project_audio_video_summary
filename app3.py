@@ -107,7 +107,7 @@ if selected_tab == tab_names[0]:
     st.session_state.active_tab = tab_names[0]
     st.subheader("📁 Wgraj plik MP3/MP4")
     uploaded_file = st.file_uploader("Wybierz plik MP3/MP4:", type=["mp3", "mp4"])
-    if uploaded_file is not None:
+    if uploaded_file is not None and "just_uploaded" not in st.session_state:
         extension = os.path.splitext(uploaded_file.name)[1].lower()
         if extension == '.mp3':
             file_path = os.path.join(save_dir_mp3, uploaded_file.name)
@@ -120,7 +120,11 @@ if selected_tab == tab_names[0]:
         with open(file_path, "wb") as f:
             f.write(uploaded_file.read())
         st.success(f"✅ Plik zapisano jako: {uploaded_file.name}")
+        st.session_state["just_uploaded"] = True
         st.rerun()
+    # Resetuj znacznik po rerun
+    if "just_uploaded" in st.session_state:
+         del st.session_state["just_uploaded"]
 
 # === ZAKŁADKA 2: Lista MP3 ===
 elif selected_tab == tab_names[1]:
