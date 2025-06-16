@@ -107,8 +107,16 @@ if selected_tab == tab_names[0]:
     st.session_state.active_tab = tab_names[0]
     st.subheader("📁 Wgraj plik MP3/MP4")
     uploaded_file = st.file_uploader("Wybierz plik MP3/MP4:", type=["mp3", "mp4"])
+    
+    
     if uploaded_file is not None and "just_uploaded" not in st.session_state:
+        file_size = uploaded_file.getbuffer().nbytes
+        if file_size >MAX_FILE_SIZE:
+            st.error("za duzy plik")
+            st.stop()
         extension = os.path.splitext(uploaded_file.name)[1].lower()
+        
+
         if extension == '.mp3':
             file_path = os.path.join(save_dir_mp3, uploaded_file.name)
         elif extension == '.mp4':
