@@ -112,7 +112,7 @@ if selected_tab == tab_names[0]:
     if uploaded_file is not None and "just_uploaded" not in st.session_state:
         file_size = uploaded_file.getbuffer().nbytes
         if file_size >MAX_FILE_SIZE:
-            st.error("za duzy plik")
+            st.error("OpenAI  obsługuje pliki do 25MB")
             st.stop()
         extension = os.path.splitext(uploaded_file.name)[1].lower()
         
